@@ -24,6 +24,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 // import ws from 'nodejs-websocket'
 import SocketIO from 'socket.io'
+import store from '@/store';
 
 
 @Component({
@@ -52,10 +53,9 @@ export default class Login extends Vue {
    onSubmit(e:any):boolean {
       e.preventDefault();
       console.log(this.form.email);
-      console.log(this.form.password);
-      console.log(this.form.checked);
-      
-
+      //存储用户名
+    //   store.dispatch('setUserNickName',this.form.email);
+      store.commit('setUserNickName',this.form.email);
       this.$router.push('/home');
       return true
     //   alert(JSON.stringify(this.form));

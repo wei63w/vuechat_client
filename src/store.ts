@@ -6,12 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     userInfo:'',
-    websocket:null
+    websocket:null,
+    userNickName:'',
   },
   mutations: {
-
+    setUserNickName(state,data){
+      state.userNickName = data;
+    }
   },
   actions: {
-
+    // commitUserNickName:({commit},userNickName) => commit('setUserNickName',userNickName)
   }
 })
