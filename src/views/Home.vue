@@ -11,7 +11,7 @@
             </div>
           </div>
         </div>
-        <input class="inputs" v-model="inputStr"/><button v-on:click="sendMsg">发送</button>
+        <input class="inputs" v-on:keyup.enter="sendMsg" v-model="inputStr"/><button  v-on:click="sendMsg">发送</button>
         
     </div>
   </div>
@@ -50,6 +50,7 @@ export default class Home extends Vue {
         var tempjson = {nickname:this.username,msg:inputstr};
         this.websocket.emit('testone',tempjson);
         console.log('send content:'+tempjson);
+        this.inputStr = '';
       }
       mounted() :void {
         console.log('mounted ...... ');
