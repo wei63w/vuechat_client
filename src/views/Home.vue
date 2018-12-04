@@ -11,7 +11,7 @@
             </div>
           </div>
         </div>
-        <input class="inputs" v-on:keyup.enter="sendMsg" v-model="inputStr"/><button  v-on:click="sendMsg">发送</button>
+        <textarea class="inputs" rows="" cols="" v-on:keyup.enter="sendMsg" v-model="inputStr"></textarea><button  v-on:click="sendMsg">发送</button>
         
     </div>
   </div>
@@ -23,10 +23,22 @@ import { Component, Vue } from 'vue-property-decorator'
 import io from 'socket.io-client'
 import store from '@/store';
 
+import $ from 'jquery'
+
 @Component({
   components: {
    
   },
+   watch:{
+        msgArrList(){
+          this.$nextTick(() => {
+            var chatContainer = this.$el.querySelector('.chatbox') as HTMLElement;
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+            // debugger;
+          })
+        }
+    }
+  
   })
 export default class Home extends Vue {
       inputStr:string = ''
@@ -51,7 +63,20 @@ export default class Home extends Vue {
         this.websocket.emit('testone',tempjson);
         console.log('send content:'+tempjson);
         this.inputStr = '';
+
       }
+      
+      // watch():void{
+      //   inputstr(){
+
+      //   }
+
+      //   this.$nextTick(() => {
+      //     var chatContainer = this.$el.querySelector('.chatbox') as HTMLElement;
+      //     chatContainer.scrollTop = chatContainer.scrollHeight;
+      //     debugger;
+      //   })
+      // }
       mounted() :void {
         console.log('mounted ...... ');
         if(this.username == ''){
@@ -109,6 +134,7 @@ export default class Home extends Vue {
   .container{
         text-align: center;
         margin: auto;
+       
   }
   .home{
         display: -ms-flexbox;
@@ -128,6 +154,7 @@ export default class Home extends Vue {
     height: 350px;
     border: 1px solid blue;
     padding: 20px;
+     overflow-y:scroll;
   }
 
   .inputs{
